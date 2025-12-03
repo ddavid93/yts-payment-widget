@@ -1,23 +1,3 @@
-<script setup lang="ts">
-import {
-  SALUTATION_OPTIONS,
-  COUNTRY_OPTIONS,
-  PAYMENT_METHOD_OPTIONS,
-  BANK_INFO,
-} from '@/constants/form-options'
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Checkbox } from '@/components/ui/checkbox'
-import SelectField from '@/components/form/SelectField.vue'
-import DatePickerField from '@/components/form/DatePickerField.vue'
-</script>
-
 <template>
   <div class="space-y-6">
     <div class="space-y-2">
@@ -162,3 +142,23 @@ import DatePickerField from '@/components/form/DatePickerField.vue'
     </FormField>
   </div>
 </template>
+
+<script setup lang="ts">
+import {
+  SALUTATION_OPTIONS,
+  COUNTRY_OPTIONS,
+  PAYMENT_METHOD_OPTIONS,
+  BANK_INFO,
+} from '@/constants/form-options'
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
+import { Checkbox } from '@/components/ui/checkbox'
+import SelectField from '@/components/form/SelectField.vue'
+import DatePickerField from '@/components/form/DatePickerField.vue'
+</script>

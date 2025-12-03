@@ -1,30 +1,3 @@
-<script setup lang="ts">
-import type { IStepperProps } from '@/types/form'
-import { User, List, CheckCircle2 } from 'lucide-vue-next'
-import type { Component } from 'vue'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from '@/components/ui/accordion'
-
-defineProps<IStepperProps>()
-
-const getStepIcon = (index: number): Component => {
-  switch (index) {
-    case 0:
-      return User
-    case 1:
-      return List
-    case 2:
-      return CheckCircle2
-    default:
-      return User
-  }
-}
-</script>
-
 <template>
   <div class="w-full">
     <!-- Desktop Stepper -->
@@ -105,3 +78,30 @@ const getStepIcon = (index: number): Component => {
     </Accordion>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { IStepperProps } from '@/types/form'
+import { User, List, CheckCircle2 } from 'lucide-vue-next'
+import type { Component } from 'vue'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
+
+defineProps<IStepperProps>()
+
+const getStepIcon = (index: number): Component => {
+  switch (index) {
+    case 0:
+      return User
+    case 1:
+      return List
+    case 2:
+      return CheckCircle2
+    default:
+      return User
+  }
+}
+</script>

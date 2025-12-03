@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import type { IStepEmits } from '@/types/form'
-import { CheckCircle2 } from 'lucide-vue-next'
-import { Button } from '@/components/ui/button'
-
-const emit = defineEmits<IStepEmits>()
-</script>
-
 <template>
   <div class="flex flex-col items-center justify-center space-y-6 py-12">
     <div class="flex h-20 w-20 items-center justify-center rounded-full border-2 border-primary">
@@ -24,8 +16,16 @@ const emit = defineEmits<IStepEmits>()
       </p>
     </div>
 
-    <Button type="button" variant="outline" @click="emit('reset')" class="mt-8">
+    <Button type="button" variant="outline" class="mt-8" @click="emit('reset')">
       Back to the homepage
     </Button>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { IStepEmits } from '@/types/form'
+import { CheckCircle2 } from 'lucide-vue-next'
+import { Button } from '@/components/ui/button'
+
+const emit = defineEmits<IStepEmits>()
+</script>

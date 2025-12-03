@@ -1,11 +1,7 @@
-/** @type {import('tailwindcss').Config} */
+/**
+ * Tailwind CSS v4 uses a CSS-first approach; config is optional.
+ * We keep only the dark mode strategy here to match prior behavior.
+ */
 export default {
-    content: [
-        "./index.html",
-        "./src/**/*.{vue,js,ts,jsx,tsx}",
-    ],
-    theme: {
-        extend: {},
-    },
-    plugins: [],
+  darkMode: ["class"],
 }

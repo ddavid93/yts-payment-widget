@@ -1,21 +1,3 @@
-<script setup lang="ts">
-import { useRegistrationForm } from '@/composables/useRegistrationForm'
-import { STEP_NAMES } from '@/constants/form-options'
-import Stepper from '@/components/Stepper.vue'
-import PersonalDataStep from '@/components/steps/PersonalDataStep.vue'
-import SummaryStep from '@/components/steps/SummaryStep.vue'
-import ConfirmationStep from '@/components/steps/ConfirmationStep.vue'
-import { Button } from '@/components/ui/button'
-
-const {
-  currentStep,
-  nextStep,
-  prevStep,
-  resetForm,
-  onSubmit,
-} = useRegistrationForm()
-</script>
-
 <template>
   <div class="min-h-screen w-full bg-background">
     <div class="container mx-auto px-4 py-8 max-w-4xl">
@@ -106,3 +88,21 @@ const {
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import { useRegistrationForm } from '@/composables/useRegistrationForm'
+import { STEP_NAMES } from '@/constants/form-options'
+import Stepper from '@/components/Stepper.vue'
+import PersonalDataStep from '@/components/steps/PersonalDataStep.vue'
+import SummaryStep from '@/components/steps/SummaryStep.vue'
+import ConfirmationStep from '@/components/steps/ConfirmationStep.vue'
+import { Button } from '@/components/ui/button'
+
+const {
+  currentStep,
+  nextStep,
+  prevStep,
+  resetForm,
+  onSubmit,
+} = useRegistrationForm()
+</script>

@@ -1,11 +1,3 @@
-<script setup lang="ts">
-import type { IFormData } from '@/types/form'
-import { useFormContext } from 'vee-validate'
-import { formatDateLong } from '@/utils/formatters'
-
-const { values } = useFormContext<IFormData>()
-</script>
-
 <template>
   <div class="space-y-6">
     <div v-if="values.salutation || values.firstName || values.lastName" class="space-y-2">
@@ -57,3 +49,11 @@ const { values } = useFormContext<IFormData>()
     </div>
   </div>
 </template>
+
+<script setup lang="ts">
+import type { IFormData } from '@/types/form'
+import { useFormContext } from 'vee-validate'
+import { formatDateLong } from '@/utils/formatters'
+
+const { values } = useFormContext<IFormData>()
+</script>

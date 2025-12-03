@@ -1,3 +1,37 @@
+<template>
+  <FormField v-slot="{ value, handleChange }" :name="name">
+    <FormItem class="flex flex-col">
+      <FormLabel v-once>{{ label }}</FormLabel>
+      <Popover>
+        <PopoverTrigger asChild>
+          <FormControl>
+            <Button
+              type="button"
+              variant="outline"
+              :class="cn(
+                'w-full pl-3 text-left font-normal',
+                !value && 'text-muted-foreground'
+              )"
+            >
+              <span>{{ value ? formatDateShort(value) : (placeholder || "TT.MM.JJJJ") }}</span>
+              <CalendarIcon class="ml-auto h-4 w-4 opacity-50" />
+            </Button>
+          </FormControl>
+        </PopoverTrigger>
+        <PopoverContent class="w-auto p-0" align="start">
+          <Calendar
+            mode="single"
+            :modelValue="value"
+            initialFocus
+            @update:modelValue="(val) => handleDateChange(val, handleChange)"
+          />
+        </PopoverContent>
+      </Popover>
+      <FormMessage />
+    </FormItem>
+  </FormField>
+</template>
+
 <script setup lang="ts">
 import { formatDateShort } from '@/utils/formatters'
 import {
@@ -49,37 +83,3 @@ const handleDateChange = (value: unknown, handleChange: (value: Date | undefined
   }
 }
 </script>
-
-<template>
-  <FormField v-slot="{ value, handleChange }" :name="name">
-    <FormItem class="flex flex-col">
-      <FormLabel v-once>{{ label }}</FormLabel>
-      <Popover>
-        <PopoverTrigger asChild>
-          <FormControl>
-            <Button
-              type="button"
-              variant="outline"
-              :class="cn(
-                'w-full pl-3 text-left font-normal',
-                !value && 'text-muted-foreground'
-              )"
-            >
-              <span>{{ value ? formatDateShort(value) : (placeholder || "TT.MM.JJJJ") }}</span>
-              <CalendarIcon class="ml-auto h-4 w-4 opacity-50" />
-            </Button>
-          </FormControl>
-        </PopoverTrigger>
-        <PopoverContent class="w-auto p-0" align="start">
-          <Calendar
-            mode="single"
-            :modelValue="value"
-            @update:modelValue="(val) => handleDateChange(val, handleChange)"
-            initialFocus
-          />
-        </PopoverContent>
-      </Popover>
-      <FormMessage />
-    </FormItem>
-  </FormField>
-</template>
