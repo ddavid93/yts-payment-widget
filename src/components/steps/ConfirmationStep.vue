@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IStepEmits } from '@/types/form'
+import type { IStepEmits } from '@/types/form.type.ts'
 import { CheckCircle2 } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
 

@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import type { ISelectOption } from '@/types/form'
+import type { ISelectOption } from '@/types/form.type.ts'
 import {
   FormControl,
   FormField,

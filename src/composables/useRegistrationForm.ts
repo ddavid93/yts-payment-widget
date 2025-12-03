@@ -1,4 +1,4 @@
-import type { IFormData } from '@/types/form'
+import type { IFormData } from '@/types/form.type.ts'
 import { ref } from 'vue'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'

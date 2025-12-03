@@ -80,7 +80,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IStepperProps } from '@/types/form'
+import type { IStepperProps } from '@/types/form.type.ts'
 import { User, List, CheckCircle2 } from 'lucide-vue-next'
 import type { Component } from 'vue'
 import {

@@ -1,4 +1,4 @@
-import type { ISelectOption } from '@/types/form'
+import type { ISelectOption } from '@/types/form.type.ts'
 
 /**
  * Step names for the registration form

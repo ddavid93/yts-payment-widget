@@ -51,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IFormData } from '@/types/form'
+import type { IFormData } from '@/types/form.type.ts'
 import { useFormContext } from 'vee-validate'
 import { formatDateLong } from '@/utils/formatters'
 

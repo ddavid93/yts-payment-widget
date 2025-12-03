@@ -18,7 +18,7 @@ export const registrationSchema = z.object({
     dueDate: z.coerce.date().optional(),
     terms: z.boolean({
         required_error: 'You must accept the terms and conditions.',
-    }).refine(val => val === true, {
+    }).refine(val => val, {
         message: 'You must accept the terms and conditions.',
     }),
 })
