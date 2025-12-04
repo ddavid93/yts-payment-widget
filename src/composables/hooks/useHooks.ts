@@ -9,7 +9,7 @@ import { useTimeoutFn, watchOnce } from "@vueuse/core";
 export function useHooks(
   widgetRefForStyle: Readonly<ShallowRef<HTMLDivElement | null>>,
 ) {
-  const { isHookSettingsDone } = useHookSettings();
+  const { isHookSettingsDone, isError } = useHookSettings();
   const isReady = shallowRef(false);
 
   watchOnce(isHookSettingsDone, () => {
@@ -21,5 +21,5 @@ export function useHooks(
     start();
   });
 
-  return { isReady };
+  return { isReady, isError };
 }

@@ -30,7 +30,10 @@
           <ConfirmationStep v-if="currentStep === 2" @reset="resetForm" />
 
           <!-- Navigation Buttons -->
-          <div v-if="currentStep < 2" class="flex justify-between mt-8 pt-6 border-t">
+          <div
+            v-if="currentStep < 2"
+            class="flex justify-between mt-8 pt-6 border-t"
+          >
             <Button
               v-if="currentStep > 0"
               type="button"
@@ -40,13 +43,8 @@
               Back
             </Button>
             <div v-else />
-            
-            <Button
-              v-if="currentStep === 0"
-              type="submit"
-            >
-              Next
-            </Button>
+
+            <Button v-if="currentStep === 0" type="submit"> Next </Button>
             <Button
               v-else-if="currentStep === 1"
               type="button"
@@ -69,19 +67,11 @@
           Back
         </Button>
         <div v-else />
-        
-        <Button
-          v-if="currentStep === 0"
-          type="button"
-          @click="onSubmit"
-        >
+
+        <Button v-if="currentStep === 0" type="button" @click="onSubmit">
           Next
         </Button>
-        <Button
-          v-else-if="currentStep === 1"
-          type="button"
-          @click="nextStep"
-        >
+        <Button v-else-if="currentStep === 1" type="button" @click="nextStep">
           Next
         </Button>
       </div>
@@ -90,19 +80,14 @@
 </template>
 
 <script setup lang="ts">
-import { STEP_NAMES } from '@/constants/form-options'
-import Stepper from '@/components/Stepper.vue'
-import PersonalDataStep from '@/components/steps/PersonalDataStep.vue'
-import SummaryStep from '@/components/steps/SummaryStep.vue'
-import ConfirmationStep from '@/components/steps/ConfirmationStep.vue'
-import { Button } from '@/components/ui/button'
+import { STEP_NAMES } from "@/constants/form-options";
+import Stepper from "@/components/Stepper.vue";
+import PersonalDataStep from "@/components/steps/PersonalDataStep.vue";
+import SummaryStep from "@/components/steps/SummaryStep.vue";
+import ConfirmationStep from "@/components/steps/ConfirmationStep.vue";
+import { Button } from "@/components/ui/button";
 import { usePaymentStore } from "@/stores/usePaymentWidget.store.ts";
 
-const {
-  currentStep,
-  nextStep,
-  prevStep,
-  resetForm,
-  onSubmit,
-} = usePaymentStore()
+const { currentStep, nextStep, prevStep, resetForm, onSubmit } =
+  usePaymentStore();
 </script>

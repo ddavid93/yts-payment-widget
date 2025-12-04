@@ -9,16 +9,22 @@ import { processFetchedConfig } from "@/utils/process.util.ts";
  */
 export function useHookSettings() {
   const isHookSettingsDone = ref(false);
+  const isError = ref(false);
 
   const { settings } = useSettingsStore();
   const { fetchConfig } = useQuerySettings();
 
   onBeforeMount(async () => {
-    const response = await fetchConfig();
-    merge(settings.value, processFetchedConfig(response));
-    await nextTick();
-    isHookSettingsDone.value = true;
+    try {
+      const response = await fetchConfig();
+      merge(settings.value, processFetchedConfig(response));
+      await nextTick();
+    } catch (_) {
+      isError.value = true;
+    } finally {
+      isHookSettingsDone.value = true;
+    }
   });
 
-  return { isHookSettingsDone };
+  return { isHookSettingsDone, isError };
 }
