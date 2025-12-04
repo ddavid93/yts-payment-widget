@@ -4,7 +4,7 @@
     ref="widgetRefForStyle"
     class="min-h-[600px] relative font-general"
   >
-    <div v-if="isReady">Loading...</div>
+    <div v-if="!isReady" class="text-4xl">Loading...</div>
     <RegisterView v-else />
   </div>
 </template>
@@ -16,14 +16,12 @@ import { useTemplateRef } from "vue";
 import { provideLocal } from "@vueuse/core";
 import type { LangType } from "@/types/form.type.ts";
 
-const { lang, uuid } = withDefaults(
-  defineProps<{ lang?: LangType; uuid: string }>(),
-  {
-    lang: import.meta.env.VITE_LANG || "en",
-    uuid: import.meta.env.VITE_UUID,
-  },
-);
+const {
+  lang = import.meta.env.VITE_LANG || "en",
+  uuid = import.meta.env.VITE_UUID,
+} = defineProps<{ lang?: LangType; uuid: string }>();
 
+console.log(233232);
 provideLocal("lang", lang);
 provideLocal("uuid", uuid);
 

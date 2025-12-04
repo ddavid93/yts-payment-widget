@@ -24,7 +24,7 @@ export default defineConfig({
   build: {
     minify: "terser",
     lib: {
-      formats: ["umd"],
+      formats: ["es"],
       entry: "./src/main.ts",
       name: "yanovis-payment-widget",
       fileName: "yanovis-payment-widget",

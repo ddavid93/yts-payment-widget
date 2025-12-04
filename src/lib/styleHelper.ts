@@ -1,5 +1,3 @@
-import type { ShallowRef } from "vue";
-
 /**
  * Utility function to convert hex color to RGB values
  * @param hex - Hex color string (e.g., "#ffffff" or "ffffff")

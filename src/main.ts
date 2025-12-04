@@ -3,4 +3,4 @@ import { createApp, defineCustomElement } from "vue";
 import App from "./App.vue";
 
 customElements.define("yanovis-payment-widget", defineCustomElement(App));
-createApp(App).mount("#yanovisBookingWidget");
+createApp(App).mount("#yanovisPaymentWidget");
