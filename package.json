@@ -21,6 +21,8 @@
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
     "date-fns": "4.1.0",
+    "i18next": "^25.7.1",
+    "lodash-es": "^4.17.21",
     "lucide-vue-next": "0.555.0",
     "reka-ui": "2.6.1",
     "tailwind-merge": "3.4.0",
@@ -32,6 +34,7 @@
   "devDependencies": {
     "@eslint/js": "9.39.1",
     "@tailwindcss/vite": "4.1.17",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "24.10.1",
     "@vitejs/plugin-vue": "6.0.2",
     "@vue/tsconfig": "0.8.1",

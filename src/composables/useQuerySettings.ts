@@ -1,12 +1,12 @@
-import { useInjectsStore } from "@/stores/useInjects.store.ts";
+import { useInject } from "@/composables/useInject.ts";
 
 export function useQuerySettings() {
-  const { lang, uuid } = useInjectsStore();
+  const { lang, uuid } = useInject();
 
   const URL = `${import.meta.env.VITE_ENDPOINT}/widget/project/${uuid}/config_${lang}.json`;
 
   async function fetchConfig() {
-    const configResponse = await fetch(URL, {
+    const configResponse = await window.fetch(URL, {
       headers: {
         "Accept-Language": lang,
       },

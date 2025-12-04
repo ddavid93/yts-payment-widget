@@ -90,13 +90,13 @@
 </template>
 
 <script setup lang="ts">
-import { useRegistrationForm } from '@/composables/useRegistrationForm'
 import { STEP_NAMES } from '@/constants/form-options'
 import Stepper from '@/components/Stepper.vue'
 import PersonalDataStep from '@/components/steps/PersonalDataStep.vue'
 import SummaryStep from '@/components/steps/SummaryStep.vue'
 import ConfirmationStep from '@/components/steps/ConfirmationStep.vue'
 import { Button } from '@/components/ui/button'
+import { usePaymentStore } from "@/stores/usePaymentWidget.store.ts";
 
 const {
   currentStep,
@@ -104,5 +104,5 @@ const {
   prevStep,
   resetForm,
   onSubmit,
-} = useRegistrationForm()
+} = usePaymentStore()
 </script>

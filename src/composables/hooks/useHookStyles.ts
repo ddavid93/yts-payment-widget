@@ -1,19 +1,17 @@
-import { useFetchConfigQuery } from "@/stores/settings/useFetchConfigQuery.store";
-import { styleProperties } from "@/core/conf";
-import { useBookingStore } from "@/stores/useBooking.store";
-import { watch } from "vue";
-import type { StyleDataType } from "@/extras/typing";
+import { styleProperties } from "@/conf/conf.ts";
+import { type ShallowRef } from "vue";
 import { useTextColorFromBackground } from "@/composables/useTextColorFromBackground";
 import { useCustomFont } from "@/composables/useCustomFont";
-import { extractAndInjectFontImports, setStyleProperty } from "@/utils/styleHelper";
+import { extractAndInjectFontImports, setStyleProperty } from "@/lib/styleHelper.ts";
+import type { StyleDataType } from "@/types/form.type.ts";
 
 /**
  * Composable to trigger first in the app to initialize settings
  */
-export function useHookStyles() {
+export function useHookStyles(
+  widgetRefForStyle: Readonly<ShallowRef<HTMLDivElement | null>>,
+) {
   const DEFAULT_FONT = `Roboto, 'Open Sans', sans-serif`;
-  const { widgetRefForStyle } = useBookingStore();
-  const { data } = useFetchConfigQuery();
 
   const { enhanceStylesWithAutoTextColor, generateLightContainerOverrides } =
     useTextColorFromBackground();
@@ -29,7 +27,7 @@ export function useHookStyles() {
    *
    * @param styleData The full style object returned by the API
    */
-  async function _applyStyles(styleData: StyleDataType) {
+  async function applyStyles(styleData: StyleDataType) {
     if (!widgetRefForStyle.value) return;
 
     // Load custom font if provided in general.font_url
@@ -37,7 +35,7 @@ export function useHookStyles() {
       try {
         await loadCustomFont({
           url: styleData.general.font_url,
-          family: styleData.general.font_family
+          family: styleData.general.font_family,
         });
       } catch (e) {
         // Don't throw here - we want the app to continue working with default fonts
@@ -64,7 +62,7 @@ export function useHookStyles() {
         iconColor,
         fontFamily,
         borderRadius,
-        secondaryBorderRadius
+        secondaryBorderRadius,
       }) => {
         const styleConfig = enhancedStyleData?.[key] || {};
 
@@ -72,25 +70,10 @@ export function useHookStyles() {
         const backgroundColor = styleConfig.background_color;
         const fontColor = styleConfig.font_color;
 
-        /**
-         * Check if we can remove this logic, instead inherit from CTA
-         * the user should be able to set the background in the widget conf
-         */
-        // if (key === "step") {
-        //   // If step doesn't have its own background, inherit from CTA
-        //   if (!backgroundColor) {
-        //     backgroundColor = enhancedStyleData?.cta.background_color;
-        //   }
-        //   // If step doesn't have its own font color, inherit from CTA
-        //   if (!fontColor) {
-        //     fontColor = enhancedStyleData?.cta.font_color;
-        //   }
-        // }
-
         setStyleProperty(
           textColor,
           fontColor || generalFontColor,
-          widgetRefForStyle.value
+          widgetRefForStyle.value,
         );
 
         setStyleProperty(bgColor, backgroundColor, widgetRefForStyle.value);
@@ -98,36 +81,36 @@ export function useHookStyles() {
         setStyleProperty(
           iconColor,
           styleConfig.icon_color || styleConfig.background_color,
-          widgetRefForStyle.value
+          widgetRefForStyle.value,
         );
 
         setStyleProperty(
           fontFamily,
           styleConfig.font_family || generalFontFamily || DEFAULT_FONT,
-          widgetRefForStyle.value
+          widgetRefForStyle.value,
         );
 
         setStyleProperty(
           borderRadius,
           styleConfig.border_radius,
-          widgetRefForStyle.value
+          widgetRefForStyle.value,
         );
 
         setStyleProperty(
           secondaryBorderRadius,
           styleConfig.secondary_border_radius,
-          widgetRefForStyle.value
+          widgetRefForStyle.value,
         );
-      }
+      },
     );
 
     // Inject context-aware CSS overrides for light background containers
     // This fixes visibility issues when the general background is dark but dialogs/modals have light backgrounds
     const contextOverrideCSS = generateLightContainerOverrides(
-      enhancedStyleData?.general?.background_color
+      enhancedStyleData?.general?.background_color,
     );
     if (contextOverrideCSS) {
-      _injectCustomCSS(contextOverrideCSS);
+      injectCustomCSS(contextOverrideCSS);
     }
   }
 
@@ -137,7 +120,7 @@ export function useHookStyles() {
    *
    * @param css CSS string to inject
    */
-  function _injectCustomCSS(css: string) {
+  function injectCustomCSS(css: string) {
     if (css && widgetRefForStyle.value) {
       const cleanedCSS = extractAndInjectFontImports(css);
       const styleElement = document.createElement("style");
@@ -146,13 +129,7 @@ export function useHookStyles() {
     }
   }
 
-  watch(
-    data,
-    (val) => {
-      if (!val) return;
-      _applyStyles(val.style);
-      _injectCustomCSS(val.style_css);
-    },
-    { immediate: true }
-  );
+  // applyStyles(val.style)
+  //  injectCustomCSS(val.style_css)
+  return { applyStyles, injectCustomCSS };
 }

@@ -1,14 +1,15 @@
 import { ref } from "vue";
-import { useInjectsStore } from "@/stores/useInjects.store";
+import { useInject } from "@/composables/useInject.ts";
 import { createSharedComposable } from "@vueuse/core";
+import type { ISettings } from "@/types/form.type.ts";
 
 /**
  * This composable can be used only by useBookingStore
  */
 function useSettingsStoreSingleton() {
-  const { lang } = useInjectsStore();
+  const { lang } = useInject();
 
-  const settings = ref({ lang });
+  const settings = ref<ISettings>({ lang, id: "", endpoint: "" });
 
   return {
     settings,

@@ -11,55 +11,54 @@ import ru from "@/i18n/ru";
 import type {
   GetNestedValueType,
   LangType,
-  ValidationKeyType
-} from "@/extras/typing";
+  ValidationKeyType,
+} from "@/types/form.type.ts";
 import { createSharedComposable } from "@vueuse/core";
 
 function useI18nSingleton(lng?: LangType) {
-
-  i18next.init({
+  void i18next.init({
     lng,
     resources: {
       en: {
-        translation: en
+        translation: en,
       },
       de: {
-        translation: de
+        translation: de,
       },
       it: {
-        translation: it
+        translation: it,
       },
       nl: {
-        translation: nl
+        translation: nl,
       },
       cs: {
-        translation: cs
+        translation: cs,
       },
       pl: {
-        translation: pl
+        translation: pl,
       },
       fr: {
-        translation: fr
+        translation: fr,
       },
       es: {
-        translation: es
+        translation: es,
       },
       ru: {
-        translation: ru
-      }
+        translation: ru,
+      },
     },
-    debug: ["development", "testing"].includes(import.meta.env["VITE_ENDPOINT"])
+    debug: ["development", "testing"].includes(
+      import.meta.env["VITE_ENDPOINT"],
+    ),
   });
 
   function $t<T extends ValidationKeyType>(
     args: T,
     options?: {
       count?: number;
-      phonenumber?: string;
-      emailaddress?: string;
       fieldName?: string;
       minLength?: number;
-    }
+    },
   ) {
     return i18next.t(args, options) as GetNestedValueType<T>;
   }
