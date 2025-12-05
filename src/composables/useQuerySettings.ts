@@ -1,5 +1,4 @@
 import { useInject } from "@/composables/useInject.ts";
-import { tempResponseSettings } from "@/composables/tempResponseSettings.ts";
 
 export function useQuerySettings() {
   const { lang, uuid } = useInject();
@@ -13,14 +12,13 @@ export function useQuerySettings() {
       },
     });
 
-    // if (!configResponse.ok) {
-    //   throw new Error(
-    //     `Failed to fetch config data: ${configResponse.statusText}`,
-    //   );
-    // }
+    if (!configResponse.ok) {
+      throw new Error(
+        `Failed to fetch config data: ${configResponse.statusText}`,
+      );
+    }
 
-    // return await configResponse.json();
-    return tempResponseSettings;
+    return await configResponse.json();
   }
 
   return {

@@ -6,7 +6,7 @@
         <div
           v-for="(step, index) in steps"
           :key="step"
-          class="flex items-center gap-3 cursor-pointer select-none"
+          class="flex items-center gap-[14px] cursor-pointer select-none"
           role="button"
           tabindex="0"
           :aria-current="index === currentStep ? 'step' : undefined"
@@ -55,26 +55,26 @@
           class="border rounded-lg border-border"
         >
           <AccordionTrigger
-            class="px-4 py-3 hover:no-underline"
+            class="px-4 py-3 hover:no-underline text-base"
             :class="[
               index === currentStep
                 ? 'text-muted-foreground'
                 : 'text-muted-foreground/30',
             ]"
           >
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-[14px]">
               <div
-                class="flex items-center justify-center rounded-full w-12 h-12"
+                class="flex items-center justify-center rounded-full w-[40px] h-[40px]"
                 :class="[
                   index === currentStep
                     ? 'bg-primary text-primary-foreground'
                     : 'bg-primary/30 text-primary-foreground',
                 ]"
               >
-                <component :is="getStepIcon(index)" class="w-6 h-6" />
+                <component :is="getStepIcon(index)" class="w-[24px] h-[24px]" />
               </div>
               <span
-                class="text-sm font-bold"
+                class="text-base font-bold"
                 :class="[
                   index === currentStep
                     ? 'text-muted-foreground'

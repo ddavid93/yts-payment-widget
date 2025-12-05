@@ -94,7 +94,7 @@
         <Button
           size="lg"
           type="button"
-          @click="currentStep === 1 ? nextStep : onSubmit"
+          @click="currentStep === 1 ? nextStep() : onSubmit($event)"
         >
           {{ $t("label.next") }}
         </Button>
