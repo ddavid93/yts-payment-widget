@@ -1,6 +1,6 @@
 <template>
   <FormField v-slot="{ value, handleChange }" :name="name">
-    <FormItem class="flex flex-col">
+    <FormItem>
       <FormLabel v-once>{{ label }}</FormLabel>
       <Popover>
         <PopoverTrigger asChild>
@@ -10,7 +10,7 @@
               variant="outline"
               :class="
                 cn(
-                  'w-full h-12 pl-3 text-left font-normal',
+                  'w-full h-[45px] pl-3 text-left font-normal',
                   !value && 'text-muted-foreground',
                 )
               "

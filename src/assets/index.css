@@ -167,3 +167,20 @@ body {
 *::after {
     border-color: #E0E0E0;
 }
+
+/* Reusable Vue Transition: fade-100 */
+/* Usage: <Transition name="fade-100" mode="out-in"> ... </Transition> */
+.fade-100-enter-active,
+.fade-100-leave-active {
+    transition: opacity 100ms ease-in-out;
+}
+
+.fade-100-enter-from,
+.fade-100-leave-to {
+    opacity: 0;
+}
+
+.fade-100-enter-to,
+.fade-100-leave-from {
+    opacity: 1;
+}

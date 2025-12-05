@@ -3,44 +3,24 @@
     <div class="container mx-auto px-4 py-8 max-w-4xl">
       <!-- Stepper -->
       <div class="mb-8">
-        <Stepper :steps="STEP_NAMES" :currentStep="currentStep">
+        <Stepper
+          :steps="STEP_NAMES"
+          :currentStep="currentStep"
+          @navigate="onNavigate"
+        >
           <!-- Mobile accordion content slots -->
           <template #step-0>
-            <Transition
-              mode="out-in"
-              enterActiveClass="transition-opacity duration-200 ease-out"
-              enterFromClass="opacity-0"
-              enterToClass="opacity-100"
-              leaveActiveClass="transition-opacity duration-200 ease-in"
-              leaveFromClass="opacity-100"
-              leaveToClass="opacity-0"
-            >
+            <Transition name="fade-100" mode="out-in">
               <PersonalDataStep v-if="currentStep === 0" :key="0" />
             </Transition>
           </template>
           <template #step-1>
-            <Transition
-              mode="out-in"
-              enterActiveClass="transition-opacity duration-200 ease-out"
-              enterFromClass="opacity-0"
-              enterToClass="opacity-100"
-              leaveActiveClass="transition-opacity duration-200 ease-in"
-              leaveFromClass="opacity-100"
-              leaveToClass="opacity-0"
-            >
+            <Transition name="fade-100" mode="out-in">
               <SummaryStep v-if="currentStep === 1" :key="1" />
             </Transition>
           </template>
           <template #step-2>
-            <Transition
-              mode="out-in"
-              enterActiveClass="transition-opacity duration-200 ease-out"
-              enterFromClass="opacity-0"
-              enterToClass="opacity-100"
-              leaveActiveClass="transition-opacity duration-200 ease-in"
-              leaveFromClass="opacity-100"
-              leaveToClass="opacity-0"
-            >
+            <Transition name="fade-100" mode="out-in">
               <ConfirmationStep
                 v-if="currentStep === 2"
                 :key="2"
@@ -54,15 +34,7 @@
       <!-- Form Content (Desktop only) -->
       <div v-if="isDesktop" class="bg-card rounded-lg p-6 md:p-8">
         <form @submit="onSubmit">
-          <Transition
-            mode="out-in"
-            enterActiveClass="transition-opacity duration-200 ease-out"
-            enterFromClass="opacity-0"
-            enterToClass="opacity-100"
-            leaveActiveClass="transition-opacity duration-200 ease-in"
-            leaveFromClass="opacity-100"
-            leaveToClass="opacity-0"
-          >
+          <Transition name="fade-100" mode="out-in">
             <!-- Step 1: Personal Data -->
             <PersonalDataStep v-if="currentStep === 0" :key="0" />
 
@@ -74,30 +46,33 @@
           </Transition>
 
           <!-- Navigation Buttons -->
-          <div
-            v-if="currentStep < 2"
-            class="flex justify-between mt-8 pt-6 border-t"
-          >
-            <Button
-              v-if="currentStep > 0"
-              type="button"
-              size="lg"
-              variant="outline"
-              @click="prevStep"
+          <Transition name="fade-100" mode="out-in">
+            <div
+              v-if="currentStep < 2"
+              :key="`nav-${currentStep}`"
+              class="flex justify-between mt-8 pt-6 border-t"
             >
-              {{ $t("label.back") }}
-            </Button>
-            <div v-else />
+              <Button
+                v-if="currentStep > 0"
+                type="button"
+                size="lg"
+                variant="outline"
+                @click="prevStep"
+              >
+                {{ $t("label.back") }}
+              </Button>
+              <div v-else />
 
-            <Button
-              v-if="currentStep === 0"
-              :type="currentStep === 0 ? 'submit' : 'button'"
-              size="lg"
-              @click="currentStep === 1 && nextStep()"
-            >
-              {{ $t("label.next") }}
-            </Button>
-          </div>
+              <Button
+                v-if="currentStep === 0"
+                :type="currentStep === 0 ? 'submit' : 'button'"
+                size="lg"
+                @click="currentStep === 1 && nextStep()"
+              >
+                {{ $t("label.next") }}
+              </Button>
+            </div>
+          </Transition>
         </form>
       </div>
 
@@ -148,4 +123,15 @@ const { $t } = useI18n();
 const breakpoints = useBreakpoints(breakpointsTailwind);
 const isDesktop = breakpoints.greaterOrEqual("md");
 const isMobile = breakpoints.smaller("md");
+
+// Handle stepper click navigation (adjacent only)
+const onNavigate = (targetIndex: number): void => {
+  if (targetIndex === currentStep.value + 1) {
+    void nextStep();
+    return;
+  }
+  if (targetIndex === currentStep.value - 1) {
+    prevStep();
+  }
+};
 </script>
