@@ -1,5 +1,5 @@
 import validations from "@/i18n/en";
-import type { styleProperties } from "@/conf/conf.ts";
+import type { styleProperties } from "@/constants/conf.ts";
 
 /**
  * Form data interface
@@ -116,5 +116,3 @@ export type StyleDataType = Record<
     secondary_border_radius?: string;
   }
 >;
-
-

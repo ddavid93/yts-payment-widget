@@ -1,15 +1,18 @@
-import { styleProperties } from "@/conf/conf.ts";
-import { type ShallowRef } from "vue";
+import { styleProperties } from "@/constants/conf.ts";
 import { useTextColorFromBackground } from "@/composables/useTextColorFromBackground";
 import { useCustomFont } from "@/composables/useCustomFont";
-import { extractAndInjectFontImports, setStyleProperty } from "@/lib/styleHelper.ts";
+import {
+  extractAndInjectFontImports,
+  setStyleProperty,
+} from "@/lib/styleHelper.ts";
 import type { StyleDataType } from "@/types/form.type.ts";
+import type { ShallowRef } from "vue";
 
 /**
  * Composable to trigger first in the app to initialize settings
  */
 export function useHookStyles(
-  widgetRefForStyle: Readonly<ShallowRef<HTMLDivElement | null>>,
+  widgetRefForStyle: Readonly<ShallowRef<HTMLDivElement | null | undefined>>,
 ) {
   const DEFAULT_FONT = `Roboto, 'Open Sans', sans-serif`;
 

@@ -2,13 +2,15 @@
   <div id="appWrapper" ref="widgetRefForStyle" class="font-general">
     <div v-if="!isReady" class="text-4xl">Loading...</div>
 
-    <div v-else-if="isError" class="w-md mx-auto">
+    <div v-else-if="!isError" class="w-md mx-auto">
       <Alert variant="destructive">
         <AlertTitle>Unable to fetch the settings.</AlertTitle>
       </Alert>
     </div>
 
-    <PaymentWidget v-else />
+    <Transition name="fade-100" mode="out-in" appear>
+      <PaymentWidget v-if="isReady && isError" />
+    </Transition>
   </div>
 </template>
 
@@ -20,6 +22,11 @@ import { provideLocal } from "@vueuse/core";
 import type { LangType } from "@/types/form.type.ts";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { useI18n } from "@/composables/usei18n.ts";
+import {
+  LangSymbolKey,
+  RefWidgetKey,
+  UuidSymbolKey,
+} from "@/constants/symbols.ts";
 
 const {
   lang = import.meta.env.VITE_LANG || "en",
@@ -28,11 +35,13 @@ const {
 
 useI18n(lang);
 
-provideLocal("lang", lang);
-provideLocal("uuid", uuid);
-
 const widget = useTemplateRef("widgetRefForStyle");
-const { isReady, isError } = useHooks(widget);
+
+provideLocal(LangSymbolKey, lang);
+provideLocal(UuidSymbolKey, uuid);
+provideLocal(RefWidgetKey, widget);
+
+const { isReady, isError } = useHooks();
 </script>
 
 <style>

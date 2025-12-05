@@ -1,4 +1,4 @@
-import { ref, shallowRef } from "vue";
+import { ref } from "vue";
 import { createGlobalState } from "@vueuse/core";
 import type { IFormData } from "@/types/form.type.ts";
 import { STEP_NAMES } from "@/constants/form-options.ts";
@@ -6,8 +6,6 @@ import { usePaymentFormStore } from "@/stores/usePaymentForm.store.ts";
 
 function usePaymentStoreSingleton() {
   const { form } = usePaymentFormStore();
-
-  const widgetRefForStyle = shallowRef<HTMLElement>();
 
   // Current step state
   const currentStep = ref<number>(0);
@@ -60,7 +58,6 @@ function usePaymentStoreSingleton() {
     onSubmit,
     prevStep,
     resetStep,
-    widgetRefForStyle,
   };
 }
 

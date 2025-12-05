@@ -37,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { formatDateShort } from "@/utils/formatters";
+import { formatDateShort } from "@/lib/utils.ts";
 import {
   FormControl,
   FormField,

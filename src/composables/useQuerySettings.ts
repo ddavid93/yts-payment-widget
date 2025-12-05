@@ -8,7 +8,7 @@ export function useQuerySettings() {
   async function fetchConfig() {
     const configResponse = await window.fetch(URL, {
       headers: {
-        "Accept-Language": lang,
+        "Accept-Language": lang!,
       },
     });
 

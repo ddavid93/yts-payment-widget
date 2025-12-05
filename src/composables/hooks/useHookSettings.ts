@@ -2,7 +2,7 @@ import { merge } from "lodash-es";
 import { nextTick, onBeforeMount, ref } from "vue";
 import { useSettingsStore } from "@/stores/useSettings.store.ts";
 import { useQuerySettings } from "@/composables/useQuerySettings.ts";
-import { processFetchedConfig } from "@/utils/process.util.ts";
+import type { ISettings } from "@/types/form.type.ts";
 
 /**
  * Composable to trigger first in the app to initialize settings
@@ -19,12 +19,18 @@ export function useHookSettings() {
       const response = await fetchConfig();
       merge(settings.value, processFetchedConfig(response));
       await nextTick();
-    } catch (_) {
+    } catch {
       isError.value = true;
     } finally {
       isHookSettingsDone.value = true;
     }
   });
+
+  const processFetchedConfig = (data: any): Partial<ISettings> => {
+    return {
+      endpoint: data.api?.endpoint,
+    };
+  };
 
   return { isHookSettingsDone, isError };
 }

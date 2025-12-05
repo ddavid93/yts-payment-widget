@@ -87,20 +87,10 @@ export function isBackgroundDark(backgroundColor: string): boolean | null {
   return luminance < 0.5;
 }
 
-export function isCloseToWhiteHex(
-  hex: string | null,
-  threshold: number = 20,
-): boolean {
-  const rgb = hexToRgb(hex);
-  if (!rgb) return false;
-  const { r, g, b } = rgb;
-  return 255 - r < threshold && 255 - g < threshold && 255 - b < threshold;
-}
-
 export function setStyleProperty(
   property: any | undefined,
   value: string | undefined,
-  element: HTMLDivElement | null,
+  element: HTMLDivElement | null | undefined,
 ) {
   if (property && value && element) {
     element.style.setProperty(property, value);
