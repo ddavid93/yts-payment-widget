@@ -4,7 +4,7 @@ import { boolean, coerce, object, string } from "zod";
  * Registration form validation schema
  * Defines validation rules for all form fields
  */
-export const registrationSchema = object({
+export const formSchema = object({
   salutation: string().optional(),
   firstName: string().min(2, "First name is required"),
   lastName: string().min(2, "Last name is required"),
@@ -22,5 +22,3 @@ export const registrationSchema = object({
     message: "You must accept the terms and conditions.",
   }),
 });
-
-// export type RegistrationSchemaType = infer<typeof registrationSchema>;

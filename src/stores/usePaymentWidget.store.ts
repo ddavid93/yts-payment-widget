@@ -1,38 +1,16 @@
 import { ref, shallowRef } from "vue";
-import { createSharedComposable } from "@vueuse/core";
-import { toTypedSchema } from "@vee-validate/zod";
-import { registrationSchema } from "@/schemas/registration.schema.ts";
-import { useForm } from "vee-validate";
+import { createGlobalState } from "@vueuse/core";
 import type { IFormData } from "@/types/form.type.ts";
 import { STEP_NAMES } from "@/constants/form-options.ts";
+import { usePaymentFormStore } from "@/stores/usePaymentForm.store.ts";
 
 function usePaymentStoreSingleton() {
+  const { form } = usePaymentFormStore();
+
   const widgetRefForStyle = shallowRef<HTMLElement>();
 
   // Current step state
   const currentStep = ref<number>(0);
-
-  // Form schema
-  const formSchema = toTypedSchema(registrationSchema);
-
-  // Initialize form with vee-validate
-  const form = useForm<IFormData>({
-    validationSchema: formSchema,
-    initialValues: {
-      salutation: "",
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      street: "",
-      zip: "",
-      city: "",
-      country: "",
-      paymentMethod: "",
-      dueDate: undefined,
-      terms: false,
-    },
-  });
 
   /**
    * Navigate to the next step
@@ -63,7 +41,7 @@ function usePaymentStoreSingleton() {
   /**
    * Reset form to initial state
    */
-  const resetForm = (): void => {
+  const resetStep = (): void => {
     currentStep.value = 0;
     form.resetForm();
   };
@@ -78,13 +56,12 @@ function usePaymentStoreSingleton() {
 
   return {
     currentStep,
-    form,
     nextStep,
     onSubmit,
     prevStep,
-    resetForm,
+    resetStep,
     widgetRefForStyle,
   };
 }
 
-export const usePaymentStore = createSharedComposable(usePaymentStoreSingleton);
+export const usePaymentStore = createGlobalState(usePaymentStoreSingleton);

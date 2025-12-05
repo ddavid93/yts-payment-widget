@@ -2,7 +2,7 @@
   <div id="appWrapper" ref="widgetRefForStyle" class="font-general">
     <div v-if="!isReady" class="text-4xl">Loading...</div>
 
-    <div v-else-if="isError" class="w-md mx-auto">
+    <div v-else-if="!isError" class="w-md mx-auto">
       <Alert variant="destructive">
         <AlertTitle>Unable to fetch the settings.</AlertTitle>
       </Alert>
