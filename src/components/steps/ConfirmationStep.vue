@@ -6,18 +6,18 @@
 
     <div class="space-y-2 text-center">
       <h2 v-once class="text-3xl font-bold tracking-tight">
-        Zahlung erfolgreich abgeschlossen.
+        {{ $t('confirmation.title') }}
       </h2>
       <p v-once class="text-muted-foreground">
-        Vielen dank für Ihre Buchung!
+        {{ $t('confirmation.subtitle') }}
       </p>
       <p v-once class="text-sm text-muted-foreground">
-        Sie erhalten in Kürze eine Bestätigungsmail mit den Details zu Ihrer Buchung.
+        {{ $t('confirmation.message') }}
       </p>
     </div>
 
     <Button type="button" variant="outline" class="mt-8" @click="emit('reset')">
-      Back to the homepage
+      {{ $t('confirmation.back_home') }}
     </Button>
   </div>
 </template>
@@ -26,6 +26,8 @@
 import type { IStepEmits } from '@/types/form.type.ts'
 import { CheckCircle2 } from 'lucide-vue-next'
 import { Button } from '@/components/ui/button'
+import { useI18n } from '@/composables/usei18n'
 
 const emit = defineEmits<IStepEmits>()
+const { $t } = useI18n()
 </script>

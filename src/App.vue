@@ -2,7 +2,7 @@
   <div id="appWrapper" ref="widgetRefForStyle" class="font-general">
     <div v-if="!isReady" class="text-4xl">Loading...</div>
 
-    <div v-else-if="!isError" class="w-md mx-auto">
+    <div v-else-if="isError" class="w-md mx-auto">
       <Alert variant="destructive">
         <AlertTitle>Unable to fetch the settings.</AlertTitle>
       </Alert>
@@ -19,11 +19,14 @@ import { useTemplateRef } from "vue";
 import { provideLocal } from "@vueuse/core";
 import type { LangType } from "@/types/form.type.ts";
 import { Alert, AlertTitle } from "@/components/ui/alert";
+import { useI18n } from "@/composables/usei18n.ts";
 
 const {
   lang = import.meta.env.VITE_LANG || "en",
   uuid = import.meta.env.VITE_UUID,
 } = defineProps<{ lang?: LangType; uuid: string }>();
+
+useI18n(lang);
 
 provideLocal("lang", lang);
 provideLocal("uuid", uuid);

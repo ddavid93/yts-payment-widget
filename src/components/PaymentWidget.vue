@@ -52,7 +52,7 @@
       </div>
 
       <!-- Form Content (Desktop only) -->
-      <div v-if="isDesktop" class="bg-card rounded-lg border p-6 md:p-8">
+      <div v-if="isDesktop" class="bg-card rounded-lg p-6 md:p-8">
         <form @submit="onSubmit">
           <Transition
             mode="out-in"
@@ -81,6 +81,7 @@
             <Button
               v-if="currentStep > 0"
               type="button"
+              size="lg"
               variant="outline"
               @click="prevStep"
             >
@@ -88,13 +89,11 @@
             </Button>
             <div v-else />
 
-            <Button v-if="currentStep === 0" type="submit">
-              {{ $t("label.next") }}
-            </Button>
             <Button
-              v-else-if="currentStep === 1"
-              type="button"
-              @click="nextStep"
+              v-if="currentStep === 0"
+              :type="currentStep === 0 ? 'submit' : 'button'"
+              size="lg"
+              @click="currentStep === 1 && nextStep()"
             >
               {{ $t("label.next") }}
             </Button>
@@ -103,21 +102,25 @@
       </div>
 
       <!-- Mobile Navigation Buttons -->
-      <div v-if="isMobile && currentStep < 2" class="flex justify-between mt-4">
+      <div
+        v-if="isMobile && currentStep < 2"
+        class="flex justify-between mt-4 border-t pt-4"
+      >
         <Button
           v-if="currentStep > 0"
           type="button"
+          size="lg"
           variant="outline"
           @click="prevStep"
         >
           {{ $t("label.back") }}
         </Button>
         <div v-else />
-
-        <Button v-if="currentStep === 0" type="button" @click="onSubmit">
-          {{ $t("label.next") }}
-        </Button>
-        <Button v-else-if="currentStep === 1" type="button" @click="nextStep">
+        <Button
+          size="lg"
+          type="button"
+          @click="currentStep === 1 ? nextStep : onSubmit"
+        >
           {{ $t("label.next") }}
         </Button>
       </div>

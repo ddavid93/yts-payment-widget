@@ -1,8 +1,8 @@
 <template>
   <div class="space-y-6">
     <div class="space-y-2">
-      <h2 class="text-2xl font-semibold tracking-tight">
-        Please enter your personal data
+      <h2 class="text-3xl font-semibold tracking-tight">
+        {{ $t("form.personal_data.title") }}
       </h2>
     </div>
 
@@ -10,15 +10,18 @@
     <div class="grid gap-4 md:grid-cols-3">
       <SelectField
         name="salutation"
-        label="Anrede"
+        :label="$t('form.salutation.label')"
         :options="SALUTATION_OPTIONS"
       />
 
       <FormField v-slot="{ componentField }" name="firstName">
         <FormItem>
-          <FormLabel>Vorname*</FormLabel>
+          <FormLabel>{{ $t("form.first_name.label") }}</FormLabel>
           <FormControl>
-            <Input placeholder="Vorname" v-bind="componentField" />
+            <Input
+              :placeholder="$t('form.first_name.placeholder')"
+              v-bind="componentField"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -26,9 +29,12 @@
 
       <FormField v-slot="{ componentField }" name="lastName">
         <FormItem>
-          <FormLabel>Nachname*</FormLabel>
+          <FormLabel>{{ $t("form.last_name.label") }}</FormLabel>
           <FormControl>
-            <Input placeholder="Nachname" v-bind="componentField" />
+            <Input
+              :placeholder="$t('form.last_name.placeholder')"
+              v-bind="componentField"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -39,11 +45,11 @@
     <div class="grid gap-4 md:grid-cols-2">
       <FormField v-slot="{ componentField }" name="email">
         <FormItem>
-          <FormLabel>E-Mail Adresse*</FormLabel>
+          <FormLabel>{{ $t("form.email.label") }}</FormLabel>
           <FormControl>
             <Input
               type="email"
-              placeholder="email@adresse.com"
+              :placeholder="$t('form.email.placeholder')"
               v-bind="componentField"
             />
           </FormControl>
@@ -53,9 +59,12 @@
 
       <FormField v-slot="{ componentField }" name="phone">
         <FormItem>
-          <FormLabel>Telefonnummer</FormLabel>
+          <FormLabel>{{ $t("form.phone.label") }}</FormLabel>
           <FormControl>
-            <Input placeholder="IT" v-bind="componentField" />
+            <Input
+              :placeholder="$t('form.phone.placeholder')"
+              v-bind="componentField"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -65,9 +74,12 @@
     <!-- Street Field -->
     <FormField v-slot="{ componentField }" name="street">
       <FormItem>
-        <FormLabel>Straße</FormLabel>
+        <FormLabel>{{ $t("form.street.label") }}</FormLabel>
         <FormControl>
-          <Input placeholder="Straße" v-bind="componentField" />
+          <Input
+            :placeholder="$t('form.street.placeholder')"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>
@@ -77,9 +89,12 @@
     <div class="grid gap-4 md:grid-cols-3">
       <FormField v-slot="{ componentField }" name="zip">
         <FormItem>
-          <FormLabel>PLZ</FormLabel>
+          <FormLabel>{{ $t("form.zip.label") }}</FormLabel>
           <FormControl>
-            <Input placeholder="Postleitzahl" v-bind="componentField" />
+            <Input
+              :placeholder="$t('form.zip.placeholder')"
+              v-bind="componentField"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -87,9 +102,12 @@
 
       <FormField v-slot="{ componentField }" name="city">
         <FormItem>
-          <FormLabel>Ort</FormLabel>
+          <FormLabel>{{ $t("form.city.label") }}</FormLabel>
           <FormControl>
-            <Input placeholder="Ort" v-bind="componentField" />
+            <Input
+              :placeholder="$t('form.city.placeholder')"
+              v-bind="componentField"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
@@ -97,8 +115,8 @@
 
       <SelectField
         name="country"
-        label="Land"
-        placeholder="Land auswählen"
+        :label="$t('form.country.label')"
+        :placeholder="$t('form.country.placeholder')"
         :options="COUNTRY_OPTIONS"
       />
     </div>
@@ -107,23 +125,23 @@
     <div class="grid gap-4 md:grid-cols-2">
       <SelectField
         name="paymentMethod"
-        label="Payment Method"
-        placeholder="Choose payment method"
+        :label="$t('form.payment_method.label')"
+        :placeholder="$t('form.payment_method.placeholder')"
         :options="PAYMENT_METHOD_OPTIONS"
       />
 
-      <DatePickerField name="dueDate" label="Due date" />
+      <DatePickerField name="dueDate" :label="$t('form.due_date.label')" />
     </div>
 
     <!-- Bank Information -->
     <div class="space-y-4">
       <p class="text-sm text-muted-foreground">
-        {{ BANK_INFO.message }}
+        {{ $t("bank_info.message") }}
       </p>
       <div class="text-sm font-medium">
-        <p>{{ BANK_INFO.bankName }}</p>
-        <p>IBAN {{ BANK_INFO.iban }}</p>
-        <p>SWIFT {{ BANK_INFO.swift }}</p>
+        <p>{{ $t("bank_info.bank_name") }}</p>
+        <p>{{ $t("bank_info.iban") }} {{ BANK_INFO.iban }}</p>
+        <p>{{ $t("bank_info.swift") }} {{ BANK_INFO.swift }}</p>
       </div>
     </div>
 
@@ -135,8 +153,7 @@
         </FormControl>
         <div class="space-y-1 leading-none">
           <FormLabel>
-            *I hereby accept the privacy policy and general terms and
-            conditions.
+            {{ $t("form.terms.acceptance") }}
           </FormLabel>
           <FormMessage />
         </div>
@@ -163,4 +180,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import SelectField from "@/components/form/SelectField.vue";
 import DatePickerField from "@/components/form/DatePickerField.vue";
+import { useI18n } from "@/composables/usei18n";
+
+const { $t } = useI18n();
 </script>

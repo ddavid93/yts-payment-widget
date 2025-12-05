@@ -1,9 +1,14 @@
-import type { ISelectOption } from '@/types/form.type.ts'
+import type { ISelectOption, ValidationKeyType } from '@/types/form.type.ts'
 
 /**
  * Step names for the registration form
  */
-export const STEP_NAMES: string[] = ['Personal Data', 'Summary', 'Confirmation']
+// Step names as i18n keys. Translate at usage site with $t.
+export const STEP_NAMES: ValidationKeyType[] = [
+    'stepper.personal_data',
+    'stepper.summary',
+    'stepper.confirmation',
+]
 
 /**
  * Salutation options for the form

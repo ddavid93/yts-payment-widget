@@ -24,7 +24,7 @@ export interface IFormData {
  * Stepper component props interface
  */
 export interface IStepperProps {
-  steps: string[];
+  steps: ReadonlyArray<ValidationKeyType>;
   currentStep: number;
 }
 
