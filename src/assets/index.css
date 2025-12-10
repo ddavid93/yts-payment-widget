@@ -41,6 +41,30 @@
     --shadow-2xl: 0rem 0.125rem 0.25rem 0rem hsl(0 0% 10.1961% / 0.00);
     --tracking-normal: 0rem;
     --spacing: 0.23rem;
+
+    /* Defaults for API-driven style variables (overridden at runtime per-widget) */
+    /* General */
+    --style-general-font: var(--font-sans);
+    --style-general-font-color: var(--foreground);
+    --style-general-bg-color: var(--background);
+
+    /* Button */
+    --style-button-font: var(--font-sans);
+    --style-button-font-color: var(--primary-foreground);
+    --style-button-bg-color: var(--primary);
+    --style-button-icon-color: var(--primary-foreground);
+    --style-button-border-radius: var(--radius);
+    --style-button-secondary-border-radius: var(--radius);
+
+    /* Steps */
+    --style-steps-font: var(--font-sans);
+    --style-steps-font-color: var(--foreground);
+    --style-steps-bg-color: var(--secondary);
+    --style-steps-icon-color: var(--primary);
+
+    /* Titles */
+    --style-titles-font: var(--font-sans);
+    --style-titles-font-color: var(--foreground);
 }
 
 .dark {
@@ -183,4 +207,74 @@ body {
 .fade-100-enter-to,
 .fade-100-leave-from {
     opacity: 1;
+}
+
+/* ==============================
+   Dynamic style variable utilities (Tailwind v4)
+   These map API-driven CSS variables to convenient utilities.
+   Usage examples:
+   - text-[var(--style-titles-font-color)]
+   - bg-[var(--style-button-bg-color)]
+   - font-[var(--style-general-font)]
+   or the short aliases below:
+   - text-titles, bg-button, font-general, etc.
+   ============================== */
+
+/* Font family utilities */
+@utility font-general {
+  font-family: var(--style-general-font);
+}
+@utility font-button {
+  font-family: var(--style-button-font);
+}
+@utility font-steps {
+  font-family: var(--style-steps-font);
+}
+@utility font-titles {
+  font-family: var(--style-titles-font);
+}
+
+/* Text color utilities */
+@utility text-general {
+  color: var(--style-general-font-color);
+}
+@utility text-button {
+  color: var(--style-button-font-color);
+}
+@utility text-steps {
+  color: var(--style-steps-font-color);
+}
+@utility text-titles {
+  color: var(--style-titles-font-color);
+}
+
+/* Background color utilities */
+@utility bg-general {
+  background-color: var(--style-general-bg-color);
+}
+@utility bg-button {
+  background-color: var(--style-button-bg-color);
+}
+@utility bg-steps {
+  background-color: var(--style-steps-bg-color);
+}
+
+/* Icon color utilities */
+@utility icon-button {
+  color: var(--style-button-icon-color);
+  fill: var(--style-button-icon-color);
+  stroke: var(--style-button-icon-color);
+}
+@utility icon-steps {
+  color: var(--style-steps-icon-color);
+  fill: var(--style-steps-icon-color);
+  stroke: var(--style-steps-icon-color);
+}
+
+/* Border radius utilities (for buttons) */
+@utility rounded-button {
+  border-radius: var(--style-button-border-radius);
+}
+@utility rounded-button-secondary {
+  border-radius: var(--style-button-secondary-border-radius);
 }

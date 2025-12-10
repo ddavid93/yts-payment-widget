@@ -1,43 +1,36 @@
 export const styleProperties = [
-  // CTA configurations
-  {
-    key: "cta",
-    textColor: "--cta-text",
-    bgColor: "--cta",
-    borderRadius: "--cta-border-radius"
-  },
-
-  // Secondary CTA configurations
-  {
-    key: "secondaryCta",
-    textColor: "--secondary-cta-text",
-    bgColor: "--secondary-cta"
-  },
-
-  // Title configurations
-  {
-    key: "title",
-    textColor: "--title",
-    fontFamily: "--font-title"
-  },
-
-  // General configurations
+  // General app defaults
   {
     key: "general",
-    bgColor: "--background",
-    textColor: "--general-text",
-    fontFamily: "--font-general",
-    secondaryBgColor: "--secondary-background-color",
-    secondaryBorderRadius: "--secondary-cta-border-radius"
+    bgColor: "--style-general-bg-color",
+    textColor: "--style-general-font-color",
+    fontFamily: "--style-general-font",
   },
 
-  // Step configurations
+  // Button styles (applies to all buttons, e.g., shadcn Button)
   {
-    key: "step",
-    bgColor: "--step",
-    textColor: "--step-text",
-    iconColor: "--step-icon",
-    fontFamily: "--font-step"
+    key: "button",
+    bgColor: "--style-button-bg-color",
+    textColor: "--style-button-font-color",
+    iconColor: "--style-button-icon-color",
+    fontFamily: "--style-button-font",
+    borderRadius: "--style-button-border-radius",
+    secondaryBorderRadius: "--style-button-secondary-border-radius",
   },
 
+  // Steps (stepper + accordion)
+  {
+    key: "steps",
+    bgColor: "--style-steps-bg-color",
+    textColor: "--style-steps-font-color",
+    iconColor: "--style-steps-icon-color",
+    fontFamily: "--style-steps-font",
+  },
+
+  // Titles (page/section headers)
+  {
+    key: "titles",
+    textColor: "--style-titles-font-color",
+    fontFamily: "--style-titles-font",
+  },
 ] as const;

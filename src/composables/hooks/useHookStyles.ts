@@ -34,11 +34,14 @@ export function useHookStyles(
     if (!widgetRefForStyle.value) return;
 
     // Load custom font if provided in general.font_url
-    if (styleData.general?.font_url && styleData.general?.font_family) {
+    if (
+      styleData.general?.font_url &&
+      (styleData.general?.font_family || styleData.general?.font)
+    ) {
       try {
         await loadCustomFont({
           url: styleData.general.font_url,
-          family: styleData.general.font_family,
+          family: styleData.general.font_family || styleData.general.font!,
         });
       } catch (e) {
         // Don't throw here - we want the app to continue working with default fonts
@@ -52,7 +55,9 @@ export function useHookStyles(
     const enhancedStyleData = hasGeneralFontColor
       ? styleData
       : enhanceStylesWithAutoTextColor(styleData);
-    const generalFontFamily = enhancedStyleData?.general?.font_family;
+    const generalFontFamily =
+      enhancedStyleData?.general?.font ||
+      enhancedStyleData?.general?.font_family;
     const generalFontColor = enhancedStyleData?.general?.font_color;
 
     // Apply all style properties from the configuration array
@@ -89,7 +94,10 @@ export function useHookStyles(
 
         setStyleProperty(
           fontFamily,
-          styleConfig.font_family || generalFontFamily || DEFAULT_FONT,
+          styleConfig.font ||
+            styleConfig.font_family ||
+            generalFontFamily ||
+            DEFAULT_FONT,
           widgetRefForStyle.value,
         );
 
@@ -115,6 +123,32 @@ export function useHookStyles(
     if (contextOverrideCSS) {
       injectCustomCSS(contextOverrideCSS);
     }
+
+    // Bridge to Tailwind v4 theme tokens so existing utilities (bg-primary, text-primary-foreground, etc.)
+    // automatically adapt to API-driven styles within the widget subtree
+    const buttonBg = enhancedStyleData?.button?.background_color;
+    const buttonText =
+      enhancedStyleData?.button?.font_color || generalFontColor || undefined;
+    const generalBg = enhancedStyleData?.general?.background_color;
+
+    // Map button -> primary tokens
+    setStyleProperty("--primary", buttonBg || generalBg, widgetRefForStyle.value);
+    setStyleProperty(
+      "--primary-foreground",
+      buttonText,
+      widgetRefForStyle.value,
+    );
+
+    // Map general -> background/foreground tokens
+    setStyleProperty("--background", generalBg, widgetRefForStyle.value);
+    setStyleProperty(
+      "--foreground",
+      generalFontColor,
+      widgetRefForStyle.value,
+    );
+
+    // Map general font to Tailwind theme font var used by font-sans
+    setStyleProperty("--font-sans", generalFontFamily || DEFAULT_FONT, widgetRefForStyle.value);
   }
 
   /**

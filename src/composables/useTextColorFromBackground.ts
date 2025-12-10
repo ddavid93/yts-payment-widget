@@ -11,10 +11,10 @@ import { isBackgroundDark } from "@/lib/styleHelper.ts";
  * these defaults instead of falling back to general.background_color.
  */
 const DEFAULT_CSS_BACKGROUNDS: Partial<Record<StylePropertiesType, string>> = {
-  cta: "#326bd5", // Dark blue
-  secondaryCta: "#f4f7fd", // Light blue/gray
-  step: "#326bd5", // Dark blue
-  // Note: general background is transparent by default, so no entry needed
+  // Note: We intentionally keep this minimal to avoid incorrect assumptions.
+  // If your design system has default hex backgrounds for components, add them here.
+  // button: "#326bd5",
+  // steps: "#326bd5",
 };
 
 /**
@@ -155,8 +155,8 @@ export function useTextColorFromBackground() {
 .dialog-content,
 .modal-content,
 .light-container {
-  --title: #000000 !important;
-  --general-text: #606060 !important;
+  --style-titles-font-color: #000000 !important;
+  --style-general-font-color: #606060 !important;
 }
 
 /* Specific overrides for dialog components */

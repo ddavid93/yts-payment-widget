@@ -108,6 +108,8 @@ export type StylePropertiesType = (typeof styleProperties)[number]["key"];
 export type StyleDataType = Record<
   StylePropertiesType,
   {
+    // API supports both `font` and legacy `font_family`
+    font?: string;
     background_color?: string;
     border_radius?: string;
     font_color?: string;
