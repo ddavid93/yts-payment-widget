@@ -1,5 +1,5 @@
 import { createSharedComposable } from "@vueuse/core";
-import { toTypedSchema } from "@vee-validate/zod";
+import { toTypedSchema } from "@vee-validate/valibot";
 import { formSchema } from "@/schemas/form.schema.ts";
 import { useForm } from "vee-validate";
 

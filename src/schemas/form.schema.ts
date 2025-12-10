@@ -1,24 +1,34 @@
-import { boolean, coerce, object, string } from "zod";
+import {
+  boolean,
+  check,
+  date,
+  minLength,
+  object,
+  email,
+  optional,
+  pipe,
+  string,
+} from "valibot";
 
 /**
  * Registration form validation schema
  * Defines validation rules for all form fields
  */
 export const formSchema = object({
-  salutation: string().optional(),
-  firstName: string().min(2, "First name is required"),
-  lastName: string().min(2, "Last name is required"),
-  email: string().email("Please enter a valid email"),
-  phone: string().optional(),
-  street: string().optional(),
-  zip: string().optional(),
-  city: string().optional(),
-  country: string().optional(),
-  paymentMethod: string().optional(),
-  dueDate: coerce.date().optional(),
-  terms: boolean({
-    required_error: "You must accept the terms and conditions.",
-  }).refine((val) => val, {
-    message: "You must accept the terms and conditions.",
-  }),
+  salutation: optional(string()),
+  firstName: pipe(string(), minLength(2, "First name is required")),
+  lastName: pipe(string(), minLength(2, "Last name is required")),
+  email: pipe(string(), email("Please enter a valid email")),
+  phone: optional(string()),
+  street: optional(string()),
+  zip: optional(string()),
+  city: optional(string()),
+  country: optional(string()),
+  paymentMethod: optional(string()),
+  // Accept a Date instance if provided
+  dueDate: optional(date()),
+  terms: pipe(
+    boolean(),
+    check((val) => val === true, "You must accept the terms and conditions."),
+  ),
 });
