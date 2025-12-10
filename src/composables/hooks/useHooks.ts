@@ -3,19 +3,25 @@ import { useHookStyles } from "@/composables/hooks/useHookStyles.ts";
 import { nextTick, shallowRef } from "vue";
 import { useTimeoutFn, watchOnce } from "@vueuse/core";
 import { useInject } from "@/composables/useInject.ts";
+import { useSettingsStore } from "@/stores/useSettings.store.ts";
 
 /**
  * Composable to trigger first in the app to initialize settings
  */
 export function useHooks() {
   const { isHookSettingsDone, isError } = useHookSettings();
+  const { settings } = useSettingsStore();
+
   const isReady = shallowRef(false);
 
   const { widgetRef } = useInject();
 
   watchOnce(isHookSettingsDone, () => {
     const { start } = useTimeoutFn(async () => {
-      useHookStyles(widgetRef!);
+      const { applyStyles } = useHookStyles(widgetRef!);
+      await applyStyles(settings.value.style);
+      // hookStyles.injectCustomCSS();
+      //  injectCustomCSS(val.style_css)
       await nextTick();
       isReady.value = true;
     }, 1000);

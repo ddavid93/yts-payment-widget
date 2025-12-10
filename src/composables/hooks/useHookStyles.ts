@@ -132,7 +132,5 @@ export function useHookStyles(
     }
   }
 
-  // applyStyles(val.style)
-  //  injectCustomCSS(val.style_css)
   return { applyStyles, injectCustomCSS };
 }

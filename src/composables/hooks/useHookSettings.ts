@@ -29,6 +29,7 @@ export function useHookSettings() {
   const processFetchedConfig = (data: any): Partial<ISettings> => {
     return {
       endpoint: data.api?.endpoint,
+      style: data.style,
     };
   };
 

@@ -100,6 +100,7 @@ export interface ISettings {
   lang: LangType;
   id: string;
   endpoint: string;
+  style: any;
 }
 
 export type StylePropertiesType = (typeof styleProperties)[number]["key"];
