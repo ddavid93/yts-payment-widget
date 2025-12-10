@@ -5,6 +5,9 @@ export const styleProperties = [
     bgColor: "--style-general-bg-color",
     textColor: "--style-general-font-color",
     fontFamily: "--style-general-font",
+    // General secondary surface mappings
+    secondaryBgColor: "--style-general-secondary-bg-color",
+    secondaryBorderRadius: "--style-general-secondary-border-radius",
   },
 
   // Button styles (applies to all buttons, e.g., shadcn Button)
@@ -16,6 +19,15 @@ export const styleProperties = [
     fontFamily: "--style-button-font",
     borderRadius: "--style-button-border-radius",
     secondaryBorderRadius: "--style-button-secondary-border-radius",
+  },
+
+  // CTA (call to action) — prominent action styling
+  {
+    key: "cta",
+    bgColor: "--style-cta-bg-color",
+    textColor: "--style-cta-font-color",
+    fontFamily: "--style-cta-font",
+    borderRadius: "--style-cta-border-radius",
   },
 
   // Steps (stepper + accordion)

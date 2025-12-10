@@ -111,6 +111,7 @@ export type StyleDataType = Record<
     // API supports both `font` and legacy `font_family`
     font?: string;
     background_color?: string;
+    secondary_background_color?: string;
     border_radius?: string;
     font_color?: string;
     font_family?: string;

@@ -67,6 +67,7 @@ export function useHookStyles(
         key,
         textColor,
         bgColor,
+        secondaryBgColor,
         iconColor,
         fontFamily,
         borderRadius,
@@ -85,6 +86,13 @@ export function useHookStyles(
         );
 
         setStyleProperty(bgColor, backgroundColor, widgetRefForStyle.value);
+
+        // Secondary background (e.g., general.secondary_background_color)
+        setStyleProperty(
+          secondaryBgColor,
+          styleConfig.secondary_background_color,
+          widgetRefForStyle.value,
+        );
 
         setStyleProperty(
           iconColor,
@@ -130,6 +138,11 @@ export function useHookStyles(
     const buttonText =
       enhancedStyleData?.button?.font_color || generalFontColor || undefined;
     const generalBg = enhancedStyleData?.general?.background_color;
+    const secondaryBg =
+      enhancedStyleData?.general?.secondary_background_color;
+    const ctaBg = enhancedStyleData?.cta?.background_color;
+    const ctaText =
+      enhancedStyleData?.cta?.font_color || generalFontColor || undefined;
 
     // Map button -> primary tokens
     setStyleProperty("--primary", buttonBg || generalBg, widgetRefForStyle.value);
@@ -143,6 +156,23 @@ export function useHookStyles(
     setStyleProperty("--background", generalBg, widgetRefForStyle.value);
     setStyleProperty(
       "--foreground",
+      generalFontColor,
+      widgetRefForStyle.value,
+    );
+
+    // Map CTA -> accent tokens (if provided)
+    setStyleProperty("--accent", ctaBg, widgetRefForStyle.value);
+    setStyleProperty(
+      "--accent-foreground",
+      ctaText,
+      widgetRefForStyle.value,
+    );
+
+    // Map general secondary -> secondary tokens
+    setStyleProperty("--secondary", secondaryBg, widgetRefForStyle.value);
+    // For foreground, prefer generalFontColor as safe default
+    setStyleProperty(
+      "--secondary-foreground",
       generalFontColor,
       widgetRefForStyle.value,
     );

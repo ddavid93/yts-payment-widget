@@ -65,6 +65,16 @@
     /* Titles */
     --style-titles-font: var(--font-sans);
     --style-titles-font-color: var(--foreground);
+
+    /* CTA */
+    --style-cta-font: var(--font-sans);
+    --style-cta-font-color: var(--accent-foreground);
+    --style-cta-bg-color: var(--accent);
+    --style-cta-border-radius: var(--radius);
+
+    /* General secondary surface */
+    --style-general-secondary-bg-color: var(--secondary);
+    --style-general-secondary-border-radius: var(--radius);
 }
 
 .dark {
@@ -234,6 +244,10 @@ body {
   font-family: var(--style-titles-font);
 }
 
+@utility font-cta {
+  font-family: var(--style-cta-font);
+}
+
 /* Text color utilities */
 @utility text-general {
   color: var(--style-general-font-color);
@@ -248,6 +262,10 @@ body {
   color: var(--style-titles-font-color);
 }
 
+@utility text-cta {
+  color: var(--style-cta-font-color);
+}
+
 /* Background color utilities */
 @utility bg-general {
   background-color: var(--style-general-bg-color);
@@ -257,6 +275,14 @@ body {
 }
 @utility bg-steps {
   background-color: var(--style-steps-bg-color);
+}
+
+@utility bg-cta {
+  background-color: var(--style-cta-bg-color);
+}
+
+@utility bg-general-secondary {
+  background-color: var(--style-general-secondary-bg-color);
 }
 
 /* Icon color utilities */
@@ -277,4 +303,12 @@ body {
 }
 @utility rounded-button-secondary {
   border-radius: var(--style-button-secondary-border-radius);
+}
+
+@utility rounded-cta {
+  border-radius: var(--style-cta-border-radius);
+}
+
+@utility rounded-general-secondary {
+  border-radius: var(--style-general-secondary-border-radius);
 }
