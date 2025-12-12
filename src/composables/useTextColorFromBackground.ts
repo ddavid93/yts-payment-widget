@@ -72,7 +72,7 @@ export function useTextColorFromBackground() {
    * @param backgroundColorToUse - The background color to base the automatic color on
    */
   function _applyAutomaticColor(
-    enhancedStyleData: Record<StylePropertiesType, any>,
+    enhancedStyleData: Partial<StyleDataType>,
     styleKey: StylePropertiesType,
     colorProperty: "font_color" | "icon_color",
     backgroundColorToUse: string,
@@ -94,8 +94,8 @@ export function useTextColorFromBackground() {
    * @returns Enhanced style configuration with automatic text colors where needed
    */
   function enhanceStylesWithAutoTextColor(
-    styleData: StyleDataType,
-  ): StyleDataType {
+    styleData: Partial<StyleDataType>,
+  ): Partial<StyleDataType> {
     const enhancedStyleData = { ...styleData };
 
     // Get the general background color for fallback logic

@@ -34,7 +34,7 @@
 import type { IStepEmits } from "@/types/form.type.ts";
 import { CheckCircle2 } from "lucide-vue-next";
 import { Button } from "@/components/ui/button";
-import { useI18n } from "@/composables/usei18n";
+import { useI18n } from "@/composables/i18n";
 
 const emit = defineEmits<IStepEmits>();
 const { $t } = useI18n();

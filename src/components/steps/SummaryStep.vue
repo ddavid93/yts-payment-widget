@@ -57,7 +57,11 @@
         {{ $t("summary.payment_method") }}
       </h3>
       <p class="text-base font-semibold">
-        {{ $t(`payment_method.${form.values.paymentMethod}`) }}
+        {{
+          $t(
+            `payment_method.${form.values.paymentMethod}` as "payment_method.bank_transfer" | "payment_method.credit_card"
+          )
+        }}
       </p>
       <div v-once class="text-sm text-muted-foreground mt-2">
         <p>{{ $t("bank_info.message") }}</p>
@@ -81,7 +85,7 @@
 <script setup lang="ts">
 import { formatDateLong } from "@/lib/utils.ts";
 import { usePaymentFormStore } from "@/stores/usePaymentForm.store.ts";
-import { useI18n } from "@/composables/usei18n";
+import { useI18n } from "@/composables/i18n";
 import { BANK_INFO } from "@/constants/form-options";
 
 const { form } = usePaymentFormStore();

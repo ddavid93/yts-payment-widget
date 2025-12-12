@@ -1,10 +1,7 @@
 import { styleProperties } from "@/constants/conf.ts";
 import { useTextColorFromBackground } from "@/composables/useTextColorFromBackground";
 import { useCustomFont } from "@/composables/useCustomFont";
-import {
-  extractAndInjectFontImports,
-  setStyleProperty,
-} from "@/lib/styleHelper.ts";
+import { extractAndInjectFontImports, setStyleProperty } from "@/lib/styleHelper.ts";
 import type { StyleDataType } from "@/types/form.type.ts";
 import type { ShallowRef } from "vue";
 
@@ -30,7 +27,7 @@ export function useHookStyles(
    *
    * @param styleData The full style object returned by the API
    */
-  async function applyStyles(styleData: StyleDataType) {
+  async function applyStyles(styleData: Partial<StyleDataType>) {
     if (!widgetRefForStyle.value) return;
 
     // Load custom font if provided in general.font_url
@@ -62,66 +59,68 @@ export function useHookStyles(
 
     // Apply all style properties from the configuration array
     // This handles colors, fonts, border radius, and other CSS custom properties
-    styleProperties.forEach(
-      ({
-        key,
+    styleProperties.forEach((prop) => {
+      const { key, textColor } = prop;
+      const bgColor = "bgColor" in prop ? prop.bgColor : undefined;
+      const secondaryBgColor =
+        "secondaryBgColor" in prop ? prop.secondaryBgColor : undefined;
+      const iconColor = "iconColor" in prop ? prop.iconColor : undefined;
+      const fontFamily = "fontFamily" in prop ? prop.fontFamily : undefined;
+      const borderRadius =
+        "borderRadius" in prop ? prop.borderRadius : undefined;
+      const secondaryBorderRadius =
+        "secondaryBorderRadius" in prop
+          ? prop.secondaryBorderRadius
+          : undefined;
+
+      const styleConfig = enhancedStyleData?.[key] || {};
+
+      // Extract values from the style configuration
+      const backgroundColor = styleConfig.background_color;
+      const fontColor = styleConfig.font_color;
+
+      setStyleProperty(
         textColor,
-        bgColor,
+        fontColor || generalFontColor,
+        widgetRefForStyle.value,
+      );
+
+      setStyleProperty(bgColor, backgroundColor, widgetRefForStyle.value);
+
+      // Secondary background (e.g., general.secondary_background_color)
+      setStyleProperty(
         secondaryBgColor,
+        styleConfig.secondary_background_color,
+        widgetRefForStyle.value,
+      );
+
+      setStyleProperty(
         iconColor,
+        styleConfig.icon_color || styleConfig.background_color,
+        widgetRefForStyle.value,
+      );
+
+      setStyleProperty(
         fontFamily,
+        styleConfig.font ||
+          styleConfig.font_family ||
+          generalFontFamily ||
+          DEFAULT_FONT,
+        widgetRefForStyle.value,
+      );
+
+      setStyleProperty(
         borderRadius,
+        styleConfig.border_radius,
+        widgetRefForStyle.value,
+      );
+
+      setStyleProperty(
         secondaryBorderRadius,
-      }) => {
-        const styleConfig = enhancedStyleData?.[key] || {};
-
-        // Extract values from the style configuration
-        const backgroundColor = styleConfig.background_color;
-        const fontColor = styleConfig.font_color;
-
-        setStyleProperty(
-          textColor,
-          fontColor || generalFontColor,
-          widgetRefForStyle.value,
-        );
-
-        setStyleProperty(bgColor, backgroundColor, widgetRefForStyle.value);
-
-        // Secondary background (e.g., general.secondary_background_color)
-        setStyleProperty(
-          secondaryBgColor,
-          styleConfig.secondary_background_color,
-          widgetRefForStyle.value,
-        );
-
-        setStyleProperty(
-          iconColor,
-          styleConfig.icon_color || styleConfig.background_color,
-          widgetRefForStyle.value,
-        );
-
-        setStyleProperty(
-          fontFamily,
-          styleConfig.font ||
-            styleConfig.font_family ||
-            generalFontFamily ||
-            DEFAULT_FONT,
-          widgetRefForStyle.value,
-        );
-
-        setStyleProperty(
-          borderRadius,
-          styleConfig.border_radius,
-          widgetRefForStyle.value,
-        );
-
-        setStyleProperty(
-          secondaryBorderRadius,
-          styleConfig.secondary_border_radius,
-          widgetRefForStyle.value,
-        );
-      },
-    );
+        styleConfig.secondary_border_radius,
+        widgetRefForStyle.value,
+      );
+    });
 
     // Inject context-aware CSS overrides for light background containers
     // This fixes visibility issues when the general background is dark but dialogs/modals have light backgrounds
@@ -138,14 +137,17 @@ export function useHookStyles(
     const buttonText =
       enhancedStyleData?.button?.font_color || generalFontColor || undefined;
     const generalBg = enhancedStyleData?.general?.background_color;
-    const secondaryBg =
-      enhancedStyleData?.general?.secondary_background_color;
+    const secondaryBg = enhancedStyleData?.general?.secondary_background_color;
     const ctaBg = enhancedStyleData?.cta?.background_color;
     const ctaText =
       enhancedStyleData?.cta?.font_color || generalFontColor || undefined;
 
     // Map button -> primary tokens
-    setStyleProperty("--primary", buttonBg || generalBg, widgetRefForStyle.value);
+    setStyleProperty(
+      "--primary",
+      buttonBg || generalBg,
+      widgetRefForStyle.value,
+    );
     setStyleProperty(
       "--primary-foreground",
       buttonText,
@@ -154,19 +156,11 @@ export function useHookStyles(
 
     // Map general -> background/foreground tokens
     setStyleProperty("--background", generalBg, widgetRefForStyle.value);
-    setStyleProperty(
-      "--foreground",
-      generalFontColor,
-      widgetRefForStyle.value,
-    );
+    setStyleProperty("--foreground", generalFontColor, widgetRefForStyle.value);
 
     // Map CTA -> accent tokens (if provided)
     setStyleProperty("--accent", ctaBg, widgetRefForStyle.value);
-    setStyleProperty(
-      "--accent-foreground",
-      ctaText,
-      widgetRefForStyle.value,
-    );
+    setStyleProperty("--accent-foreground", ctaText, widgetRefForStyle.value);
 
     // Map general secondary -> secondary tokens
     setStyleProperty("--secondary", secondaryBg, widgetRefForStyle.value);
@@ -178,7 +172,11 @@ export function useHookStyles(
     );
 
     // Map general font to Tailwind theme font var used by font-sans
-    setStyleProperty("--font-sans", generalFontFamily || DEFAULT_FONT, widgetRefForStyle.value);
+    setStyleProperty(
+      "--font-sans",
+      generalFontFamily || DEFAULT_FONT,
+      widgetRefForStyle.value,
+    );
   }
 
   /**

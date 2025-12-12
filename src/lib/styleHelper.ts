@@ -24,13 +24,14 @@ export function hexToRgb(
   }
 
   const result = /^([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(cleanHex);
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null;
+  if (!result || !result[1] || !result[2] || !result[3]) {
+    return null;
+  }
+  return {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16),
+  };
 }
 
 /**
@@ -88,7 +89,7 @@ export function isBackgroundDark(backgroundColor: string): boolean | null {
 }
 
 export function setStyleProperty(
-  property: any | undefined,
+  property: string | undefined,
   value: string | undefined,
   element: HTMLDivElement | null | undefined,
 ) {
@@ -111,7 +112,9 @@ export function extractAndInjectFontImports(cssString: string): string {
   const urls: string[] = [];
 
   while ((match = importRegex.exec(cssString)) !== null) {
-    urls.push(match[1]);
+    if (match[1]) {
+      urls.push(match[1]);
+    }
   }
 
   urls.forEach((url) => {

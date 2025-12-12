@@ -9,7 +9,7 @@ import type { ISettings } from "@/types/form.type.ts";
 function useSettingsStoreSingleton() {
   const { lang } = useInject();
 
-  const settings = ref<ISettings>({ lang, id: "", endpoint: "" });
+  const settings = ref<ISettings>({ lang, id: "", endpoint: "", style: {} });
 
   return {
     settings,

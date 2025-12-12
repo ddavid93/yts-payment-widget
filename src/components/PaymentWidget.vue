@@ -65,9 +65,8 @@
 
               <Button
                 v-if="currentStep === 0"
-                :type="currentStep === 0 ? 'submit' : 'button'"
+                type="submit"
                 size="lg"
-                @click="currentStep === 1 && nextStep()"
               >
                 {{ $t("label.next") }}
               </Button>
@@ -112,7 +111,7 @@ import ConfirmationStep from "@/components/steps/ConfirmationStep.vue";
 import { Button } from "@/components/ui/button";
 import { usePaymentStore } from "@/stores/usePaymentWidget.store.ts";
 import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
-import { useI18n } from "@/composables/usei18n";
+import { useI18n } from "@/composables/i18n";
 
 const { currentStep, nextStep, prevStep, resetStep, onSubmit } =
   usePaymentStore();

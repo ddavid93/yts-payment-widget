@@ -180,7 +180,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import SelectField from "@/components/form/SelectField.vue";
 import DatePickerField from "@/components/form/DatePickerField.vue";
-import { useI18n } from "@/composables/usei18n";
+import { useI18n } from "@/composables/i18n";
 
 const { $t } = useI18n();
 </script>

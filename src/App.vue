@@ -21,7 +21,7 @@ import { useTemplateRef } from "vue";
 import { provideLocal } from "@vueuse/core";
 import type { LangType } from "@/types/form.type.ts";
 import { Alert, AlertTitle } from "@/components/ui/alert";
-import { useI18n } from "@/composables/usei18n.ts";
+import { useI18n } from "@/composables/i18n";
 import {
   LangSymbolKey,
   RefWidgetKey,

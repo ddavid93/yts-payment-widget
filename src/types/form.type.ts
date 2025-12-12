@@ -69,7 +69,7 @@ export type ValidationKeyType<
   ? {
       [K in keyof T]: K extends string
         ? T[K] extends object
-          ? ValidationKeyType<T[K], `${K}.`>
+          ? ValidationKeyType<T[K], `${Prefix}${K}.`>
           : `${Prefix}${K}`
         : never;
     }[keyof T]
@@ -87,20 +87,13 @@ export type LangType =
   | "es"
   | "fr"
   | "ru"
-  | "pt"
   | "cs"
+  | "pl"
   | "nl";
 
 export interface ICustomFont {
   url: string;
   family: string;
-}
-
-export interface ISettings {
-  lang: LangType;
-  id: string;
-  endpoint: string;
-  style: any;
 }
 
 export type StylePropertiesType = (typeof styleProperties)[number]["key"];
@@ -120,3 +113,10 @@ export type StyleDataType = Record<
     secondary_border_radius?: string;
   }
 >;
+
+export interface ISettings {
+  lang: LangType;
+  id: string;
+  endpoint: string;
+  style: Partial<StyleDataType>;
+}

@@ -104,7 +104,7 @@
     AccordionItem,
     AccordionTrigger,
   } from "@/components/ui/accordion";
-  import { useI18n } from "@/composables/usei18n";
+  import { useI18n } from "@/composables/i18n";
   import { breakpointsTailwind, useBreakpoints } from "@vueuse/core";
 
   const props = defineProps<IStepperProps>();
