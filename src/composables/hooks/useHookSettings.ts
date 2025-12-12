@@ -1,8 +1,8 @@
-import { merge } from "lodash-es";
 import { nextTick, onBeforeMount, ref } from "vue";
 import { useSettingsStore } from "@/stores/useSettings.store.ts";
 import { useQuerySettings } from "@/composables/useQuerySettings.ts";
 import type { ISettings } from "@/types/form.type.ts";
+import { deepMerge } from "@/lib/utils.ts";
 
 /**
  * Composable to trigger first in the app to initialize settings
@@ -17,7 +17,7 @@ export function useHookSettings() {
   onBeforeMount(async () => {
     try {
       const response = await fetchConfig();
-      merge(settings.value, processFetchedConfig(response));
+      deepMerge(settings.value, processFetchedConfig(response));
       await nextTick();
     } catch {
       isError.value = true;

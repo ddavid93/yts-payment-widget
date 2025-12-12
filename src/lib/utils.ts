@@ -42,3 +42,37 @@ export const formatDateLong = (date: Date | string | undefined): string => {
     year: "numeric",
   });
 };
+
+type AnyRecord = Record<string, any>;
+
+function isPlainObject(value: unknown): value is AnyRecord {
+  return Object.prototype.toString.call(value) === "[object Object]";
+}
+
+export function deepMerge<T extends AnyRecord>(
+  target: T,
+  source: Partial<T>,
+): T {
+  if (!isPlainObject(target) || !isPlainObject(source)) return target;
+
+  // Use indexable views to allow writes without TS2862.
+  const t = target as AnyRecord;
+  const s = source as AnyRecord;
+
+  for (const key of Object.keys(s)) {
+    // Avoid prototype pollution keys
+    if (key === "__proto__" || key === "constructor" || key === "prototype")
+      continue;
+
+    const sourceValue = s[key];
+    const targetValue = t[key];
+
+    if (isPlainObject(sourceValue) && isPlainObject(targetValue)) {
+      deepMerge(targetValue, sourceValue);
+    } else if (sourceValue !== undefined) {
+      t[key] = sourceValue;
+    }
+  }
+
+  return target;
+}
